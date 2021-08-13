@@ -1,5 +1,5 @@
 const data = require('./data');
-const { species } = require('./data');
+const { species, employees } = require('./data');
 
 function getSpeciesByIds(...ids) {
   return species.filter((animal) => ids.includes(animal.id));
@@ -22,7 +22,12 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  const managersId = employees.map(({ managers }) => managers).reduce((acc, current) => {
+    acc.push(...current);
+    return acc;
+  });
+  const managersFiltered = managersId.filter((element, i) => managersId.indexOf(element) === i);
+  return managersFiltered.includes(id);
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
