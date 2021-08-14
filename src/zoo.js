@@ -144,6 +144,7 @@ function getEmployeeCoverage(idOrName) {
     .responsibleFor.map((specieId) => data.species.find(({ id }) => id === specieId).name),
   };
 }
+// Para resolução da função 'getEmployeeCoverage' foi utilizada como base o código do Rodolfo Braga. Segue link do repositório: https://github.com/rodolfo-braga
 
 module.exports = {
   calculateEntry,
