@@ -55,8 +55,31 @@ function calculateEntry(entrants) {
   return (prices.Child * Child + prices.Adult * Adult + prices.Senior * Senior);
 }
 
+const searchByLocation = (local) => species.filter((y) => y.location === local);
+const newObject = (callback) => species.reduce((acc, { location }) =>
+  ({ ...acc, [location]: searchByLocation(location).map(callback) }), {});
+const getNames = (y) => y.name;
+function scanInsertedNames(value, callback) {
+  return value ? newObject(callback) : newObject(getNames);
+}
+
 function getAnimalMap(options) {
-  // seu código aqui
+  if (!options) return newObject(getNames);
+  const { includeNames = false, sorted = false, sex = null } = options;
+  const residentNames = (array) => (sex
+    ? array.filter((x) => x.sex === sex).map(getNames)
+    : array.map(getNames));
+  const includeAnimalNames = ({ name, residents }) => ({
+    [name]:
+    residentNames(residents),
+  });
+  const includeAnimalSortedNames = ({ name, residents }) => ({
+    [name]:
+      residentNames(residents).sort(),
+  });
+  return includeNames && sorted
+    ? newObject(includeAnimalSortedNames)
+    : scanInsertedNames(includeNames, includeAnimalNames);
 }
 
 function getSchedule(dayName) {
