@@ -81,9 +81,25 @@ function getAnimalMap(options) {
     ? newObject(includeAnimalSortedNames)
     : scanInsertedNames(includeNames, includeAnimalNames);
 }
+// Para resolver a função 'getAnimalMap' utilizei como base o código da Grasiela Gomes. Link do repositório: https://github.com/grasielaGomes
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const getHours = data.hours;
+  if (!dayName) {
+    const weekDay = Object.keys(data.hours);
+    return weekDay.reduce((acc, actualDay) => {
+      const day = getHours[actualDay];
+      if (day.open === 0) {
+        acc[actualDay] = 'CLOSED';
+        return acc;
+      }
+      acc[actualDay] = `Open from ${[day.open]}am until ${[day.close] - 12}pm`;
+      return acc;
+    }, {});
+  }
+  const getDay = getHours[dayName];
+  if (getDay.open === 0) return { [dayName]: 'CLOSED' };
+  return { [dayName]: `Open from ${[getDay.open]}am until ${[getDay.close] - 12}pm` };
 }
 
 function getOldestFromFirstSpecies(id) {
