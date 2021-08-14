@@ -128,7 +128,21 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (!idOrName) {
+    return data.employees.reduce((acc, currEmployee) => {
+      const employeeFullName = `${currEmployee.firstName} ${currEmployee.lastName}`;
+      acc[employeeFullName] = currEmployee.responsibleFor
+        .map((specieId) => data.species.find(({ id }) => id === specieId).name);
+      return acc;
+    }, {});
+  }
+  const findEmployee = data.employees
+    .find(({ id, firstName, lastName }) => id === idOrName
+      || firstName === idOrName
+      || lastName === idOrName);
+  return { [`${findEmployee.firstName} ${findEmployee.lastName}`]: findEmployee
+    .responsibleFor.map((specieId) => data.species.find(({ id }) => id === specieId).name),
+  };
 }
 
 module.exports = {
