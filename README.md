@@ -1,7 +1,8 @@
 # Zoo Functions Project
 
 # Contexto
-Este é meu primeiro projeto em JavaScript e trata-se de dois arquivos contendo funções que solucionam alguns desafios lógicos e matemáticos.
+
+Este projeto trata-se de uma simulação de um sistema de gerenciamento de um zoológico. Para concluí-lo precisei implementar várias funções para atender aos requisitos propostos e garantir que todas as funções passassem nos testes unitários.
 
 ## Tecnologias usadas
 
